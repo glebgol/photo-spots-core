@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "8b6ea09f-8ad6-4a6a-a471-74649ad6137f",
+		"name": "photo-spots",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23864024"
+	},
+	"item": [
+		{
+			"name": "create tag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseData = pm.response.json();\r",
+							"pm.environment.set(\"lastCreatedTag\", responseData.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/draftmap.png"
+						},
+						{
+							"key": "description",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "longitude",
+							"value": "12",
+							"type": "text"
+						},
+						{
+							"key": "latitude",
+							"value": "50",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{env}}/tags",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all tags",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{env}}/tags",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get last created tag details by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{env}}/tags/{{lastCreatedTag}}",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"tags",
+						"{{lastCreatedTag}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
