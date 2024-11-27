@@ -1,9 +1,8 @@
 package com.glebgol.photospotsbackend.services.impl;
 
 import com.glebgol.photospotsbackend.services.ImageService;
-import io.minio.GetObjectArgs;
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
+import io.minio.*;
+import jakarta.annotation.PostConstruct;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +14,21 @@ import java.util.UUID;
 
 @Service
 public class MinioImageService implements ImageService {
+
+    @PostConstruct
+    public void createBucketIfNotExist() {
+        try {
+            boolean bucketExists = minioClient.bucketExists(BucketExistsArgs.builder().bucket("images").build());
+            if (!bucketExists) {
+                minioClient.makeBucket(MakeBucketArgs.builder().bucket("images").build());
+                System.out.println("Bucket 'images' created successfully.");
+            } else {
+                System.out.println("Bucket 'images' already exists.");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error checking or creating bucket", e);
+        }
+    }
 
     @Autowired
     MinioClient minioClient;

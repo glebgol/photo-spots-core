@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/images")
 public class ImageController {
     @Autowired
     ImageService imageService;

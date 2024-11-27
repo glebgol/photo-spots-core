@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password  # Set your root password
+      MYSQL_DATABASE: photo_spots          # Set your database name
+      MYSQL_USER: mysql_user                # Set your MySQL username
+      MYSQL_PASSWORD: mysql_pass             # Set your MySQL user password
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  minio:
+    image: quay.io/minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+
+volumes:
+  mysql_data:
+  minio_data:

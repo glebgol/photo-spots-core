@@ -1,9 +1,16 @@
 package com.glebgol.photospotsbackend.controllers;
 
+import com.glebgol.photospotsbackend.dto.request.CreateTagRequest;
+import com.glebgol.photospotsbackend.dto.response.TagData;
+import com.glebgol.photospotsbackend.dto.response.TagDataDetails;
 import com.glebgol.photospotsbackend.model.Tag;
+import com.glebgol.photospotsbackend.services.TagsService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 
@@ -11,19 +18,24 @@ import java.util.List;
 @RequestMapping("/tags")
 public class TagsController {
 
+    private final TagsService tagsService;
+
+    public TagsController(TagsService tagsService) {
+        this.tagsService = tagsService;
+    }
+
     @GetMapping
-    public List<Tag> getTags() {
-        return List.of(
-                new Tag(1L, 34.567, -12.345),
-                new Tag(2L, -78.123, 45.678),
-                new Tag(3L, 10.456, -22.789),
-                new Tag(4L, 10.0, 20.0),
-                new Tag(5L, -10.0, 50.0),
-                new Tag(6L, 75.5, -10.1),
-                new Tag(7L, 0.0, 0.0),
-                new Tag(8L, -45.0, 9.0),
-                new Tag(9L, 10.0, -9.0),
-                new Tag(10L, 50.0, 25.0)
-        );
+    public List<TagData> getTags() {
+        return tagsService.getTags();
+    }
+
+    @GetMapping("/{id}")
+    public TagDataDetails getTag(@PathVariable Long id) {
+        return tagsService.getTag(id);
+    }
+
+    @PostMapping
+    public Tag createTag(@ModelAttribute CreateTagRequest createTagRequest) {
+        return tagsService.createTag(createTagRequest);
     }
 }
