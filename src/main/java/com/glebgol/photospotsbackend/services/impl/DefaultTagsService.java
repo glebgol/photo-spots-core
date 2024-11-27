@@ -3,6 +3,7 @@ package com.glebgol.photospotsbackend.services.impl;
 import com.glebgol.photospotsbackend.dto.request.CreateTagRequest;
 import com.glebgol.photospotsbackend.dto.response.TagData;
 import com.glebgol.photospotsbackend.dto.response.TagDataDetails;
+import com.glebgol.photospotsbackend.exceptions.TagNotFoundException;
 import com.glebgol.photospotsbackend.mapper.TagMapper;
 import com.glebgol.photospotsbackend.model.Tag;
 import com.glebgol.photospotsbackend.repository.TagRepository;
@@ -35,7 +36,7 @@ public class DefaultTagsService implements TagsService {
     public TagDataDetails getTag(Long id) {
         return tagRepository.findById(id)
                 .map(tagMapper::toTagDataDetails)
-                .orElseThrow();
+                .orElseThrow(() -> new TagNotFoundException(id));
     }
 
     @Override
