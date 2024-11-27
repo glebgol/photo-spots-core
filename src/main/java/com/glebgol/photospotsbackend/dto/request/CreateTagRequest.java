@@ -7,12 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 public class CreateTagRequest {
 
-    @NotNull
+    @NotNull(message = "image should be not null")
     private MultipartFile image;
-    @NotNull
+    @NotNull(message = "description should be not null")
     private String description;
-    @NotNull
+    @NotNull(message = "longitude should be not null")
     private Float longitude;
-    @NotNull
+    @NotNull(message = "latitude should be not null")
     private Float latitude;
 }
