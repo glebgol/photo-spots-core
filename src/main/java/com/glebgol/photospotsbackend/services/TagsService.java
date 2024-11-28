@@ -11,4 +11,5 @@ public interface TagsService {
     List<TagData> getTags();
     TagDataDetails getTag(Long id);
     Tag createTag(CreateTagRequest createTagRequest);
+    void deleteTag(Long id);
 }

@@ -30,7 +30,7 @@
 						{
 							"key": "image",
 							"type": "file",
-							"src": "/draftmap.png"
+							"src": []
 						},
 						{
 							"key": "description",
@@ -98,6 +98,24 @@
 							"value": "",
 							"disabled": true
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete tag by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{env}}/tags/{{lastCreatedTag}}",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"tags",
+						"{{lastCreatedTag}}"
 					]
 				}
 			},

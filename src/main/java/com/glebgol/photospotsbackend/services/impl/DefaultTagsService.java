@@ -47,6 +47,11 @@ public class DefaultTagsService implements TagsService {
         return tagRepository.save(getNewTag(createTagRequest, imageUrlResolver.getImageUrl(imageName)));
     }
 
+    @Override
+    public void deleteTag(Long id) {
+        tagRepository.deleteById(id);
+    }
+
     private static Tag getNewTag(CreateTagRequest createTagRequest, String imageUri) {
         Tag newTag = new Tag();
         newTag.setImageUri(imageUri);

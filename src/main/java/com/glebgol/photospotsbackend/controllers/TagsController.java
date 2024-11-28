@@ -41,6 +41,12 @@ public class TagsController {
         return tagsService.createTag(createTagRequest);
     }
 
+    @DeleteMapping("/{id}")
+    public String deleteTag(@PathVariable Long id) {
+        tagsService.deleteTag(id);
+        return "Deleted tag " + id;
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException e) {
